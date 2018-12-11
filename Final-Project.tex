@@ -1,0 +1,231 @@
+\documentclass{article}
+
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage[plain]{algorithm}
+\usepackage{algpseudocode}
+
+\usetikzlibrary{automata,positioning}
+
+%
+% Basic Document Settings
+%
+
+\topmargin=-0.45in
+\evensidemargin=0in
+\oddsidemargin=0in
+\textwidth=6.5in
+\textheight=9.0in
+\headsep=0.25in
+
+\linespread{1.1}
+
+\pagestyle{fancy}
+\lhead{\hmwkAuthorName}
+%\chead{\hmwkClass\ (\hmwkClassInstructor\ \hmwkClassTime): \hmwkTitle}
+\chead{\hmwkClass: \hmwkTitle}
+\rhead{\hmwkClassInstructor}
+\lfoot{\lastxmark}
+\cfoot{\thepage}
+
+\renewcommand\headrulewidth{0.4pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength\parindent{0pt}
+
+%
+% Create Problem Sections
+%
+
+\newcommand{\enterProblemHeader}[1]{
+    \nobreak\extramarks{}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+}
+
+\newcommand{\exitProblemHeader}[1]{
+    \nobreak\extramarks{Problem \arabic{#1} (continued)}{Problem \arabic{#1} continued on next page\ldots}\nobreak{}
+    \stepcounter{#1}
+    \nobreak\extramarks{Problem \arabic{#1}}{}\nobreak{}
+}
+
+\setcounter{secnumdepth}{0}
+\newcounter{partCounter}
+\newcounter{homeworkProblemCounter}
+\setcounter{homeworkProblemCounter}{1}
+\nobreak\extramarks{Problem \arabic{homeworkProblemCounter}}{}\nobreak{}
+
+%
+% Homework Problem Environment
+%
+% This environment takes an optional argument. When given, it will adjust the
+% problem counter. This is useful for when the problems given for your
+% assignment aren't sequential. See the last 3 problems of this template for an
+% example.
+%
+\newenvironment{homeworkProblem}[1][-1]{
+    \ifnum#1>0
+        \setcounter{homeworkProblemCounter}{#1}
+    \fi
+    \section{Problem \arabic{homeworkProblemCounter}}
+    \setcounter{partCounter}{1}
+    \enterProblemHeader{homeworkProblemCounter}
+}{
+    \exitProblemHeader{homeworkProblemCounter}
+}
+
+%
+% Homework Details
+%   - Title
+%   - Due date
+%   - Class
+%   - Section/Time
+%   - Instructor
+%   - Author
+%
+
+\newcommand{\hmwkTitle}{Final Project}
+\newcommand{\hmwkDueDate}{December 11, 2018}
+\newcommand{\hmwkClass}{Differential Equations}
+\newcommand{\hmwkClassTime}{Section 3000}
+\newcommand{\hmwkClassInstructor}{Dr. Darrel Thoman}
+\newcommand{\hmwkAuthorName}{\textbf{Brent Pierce} \and \textbf{Hayden White}}
+
+%
+% Title Page
+%
+
+\title{
+    \vspace{2in}
+    \textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\
+    %\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate\ at 3:10pm}\\
+   \vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}
+    \vspace{3in}
+}
+
+\author{\hmwkAuthorName}
+\date{}
+
+\renewcommand{\part}[1]{\textbf{\large Part \Alph{partCounter}}\stepcounter{partCounter}\\}
+
+%
+% Various Helper Commands
+%
+
+% Useful for algorithms
+\newcommand{\alg}[1]{\textsc{\bfseries \footnotesize #1}}
+
+% For derivatives
+\newcommand{\deriv}[1]{\frac{\mathrm{d}}{\mathrm{d}x} (#1)}
+
+% For partial derivatives
+\newcommand{\pderiv}[2]{\frac{\partial}{\partial #1} (#2)}
+
+% Integral dx
+\newcommand{\dx}{\mathrm{d}x}
+
+% Approximate symbol
+\newcommand*{\approxident}{%
+  \mathrel{\vcenter{\offinterlineskip
+  \hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}\vskip-.35ex\hbox{$\sim$}}}}
+
+% Alias for the Solution section header
+\newcommand{\solution}{\textbf{\large Solution}}
+
+% Probability commands: Expectation, Variance, Covariance, Bias
+\newcommand{\E}{\mathrm{E}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\Cov}{\mathrm{Cov}}
+\newcommand{\Bias}{\mathrm{Bias}}
+
+\begin{document}
+
+\maketitle
+
+\pagebreak
+
+\begin{homeworkProblem}[9]
+	A motorboat weighs 32,000 lb and its motor provides a thrust of 5000 lb.
+	Assue that the water resistance is 100 pounds for each foot per second of the speed \(v\) of the boat. Then
+
+	\[
+		\begin{split}
+			1000 \frac{dv}{dt} &= 5000 - 100{v}
+		\end{split}
+	\]
+
+	If the boat starts from rest, what is the maximum velocity that it can attain?
+	\\
+
+	\textbf{Solution}
+	\\
+
+	We begin by simplifying the formula used in the problem
+	
+	\[
+		\begin{split}
+			1000 \frac{dv}{dt} &= 5000 - 100{v}
+			\\
+			10 \frac{dv}{dt} &= 50 - {v}
+		\end{split}
+	\]
+
+	We then integrate to find velocity as a function off time
+
+	\[
+		\begin{split}
+			\int \frac{dv}{(50-{v})} = \frac{1}{10} \int dt
+			\\
+			- \ln (50-{v}) = \frac{1}{10} t + {C}
+			\\
+			\ln (50-{v}) = -\frac{1}{10} t - {C}
+			\\
+			50 - {v} = C_1 e^{-\frac{t}{10}}
+			\\
+			v(t) = 50 + C_2 e^{-\frac{t}{10}}
+		\end{split}
+	\]
+
+	Given that initial velocity is 0, we can then use our function to find \(C_2\)
+
+	\[
+		\begin{split}
+			v(0) = 50 + C_2 e^{-\frac{0}{10}}
+			\\
+			0 = 50 + C_2 e^{0}
+			C_2 = -50
+		\end{split}
+	\]
+
+	Substituting back into our equation, we obtain
+
+	\[
+		\begin{split}
+			v(t) = 50 - 50 e^{-\frac{t}{10}}
+		\end{split}
+	\]
+
+	Finally, we examine the limit as \(t\) approaches infinity to find the maximum velocity
+
+	\[
+		\begin{split}
+			\lim_{t \to \infty} 50-50e^{-\frac{t}{10}} = 50 - 50(0) = 50
+		\end{split}
+	\]
+
+	Therefore,
+
+	\[
+		\begin{split}
+			{v_{max}} \approx 50 \frac{ft}{sec}
+		\end{split}
+	\]
+
+\end{homeworkProblem}
+
+\pagebreak
+
+\end{document}
